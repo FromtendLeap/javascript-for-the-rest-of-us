@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontendLeap workshop</title>
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>JS Attention Detector</h1>
+        <div class="controls">
+            <button id="start-stop"><span>Iniciar</span> detección</button>
+        </div>
+        <div class="video-container">
+            <video id="video-player" controls muted>
+                <source src="assets/sample-video.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+        <div class="camera-container">
+            <h2>Estado de atención</h2>
+            <div id="attention-status">Inicializando...</div>
+            <video autoplay muted playsinline id="webcam"></video>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</body>
+
+</html>
