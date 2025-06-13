@@ -20,13 +20,13 @@ const testButton = document.querySelector('#test'); // object
 
 // Diferentes tipos de datos
 const nombre = 'Laura'; // string (texto)
-const color 25; // number (número)
+const edad = 25; // number (número)
 const estaActivo = true; // boolean (verdadero/falso)
 let sinValor; // undefined (sin valor)
 
-console.log('Botón:', testButton);
 console.log(
   'Tipos:',
+  typeof testButton,
   typeof nombre,
   typeof edad,
   typeof estaActivo,
