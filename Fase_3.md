@@ -61,7 +61,7 @@ function verificarEstado() {
 console.log('🎬 Iniciando detección cada 1.5 segundos...');
 const intervalId = setInterval(verificarEstado, 1500);
 ```
-- **Aplicación a la fase**: Creamos las funciones `startDetecting()` y `stopDetecting()`
+- **Aplicación a la fase**: Creamos las funciones básicas `startDetecting()` y `stopDetecting()`
 ```js
 async function startDetecting() {
   await initCamera();
@@ -80,7 +80,7 @@ function stopDetecting() {
   console.log('🛑 Detección detenida');
 }
 ```
-- **Resultado esperado**: Tenemos las funciones que controlan la detección automática
+- **Resultado esperado**: Tenemos la estructura de detección automática básica funcionando
 
 ---
 
@@ -145,63 +145,7 @@ async function startDetecting() {
 ---
 
 ### Concepto 4: Control automático del video según atención
-- **Explicación**: Usamos el modelo para analizar el frame actual de la webcam. Devuelve un array con información sobre las caras detectadas.
-- **Demo RunJS**:
-```js
-// Simular el proceso de detección facial
-async function simularDeteccionFacial() {
-  console.log('🔍 Analizando frame de video...');
-  
-  // Simular tiempo de procesamiento
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  // Simular resultados variables
-  const scenarios = [
-    [], // Sin caras
-    [{ // Una cara detectada
-      topLeft: [50, 60], 
-      bottomRight: [150, 180]
-    }]
-  ];
-  
-  const result = scenarios[Math.floor(Math.random() * scenarios.length)];
-  console.log(`📊 Resultado: ${result.length} cara(s) detectada(s)`);
-  
-  return result;
-}
-
-const caras = await simularDeteccionFacial();
-console.log('Caras:', caras);
-```
-- **Aplicación a la fase**: Creamos `detectFaces()` y la añadimos al sistema
-```js
-async function detectFaces() {
-  if (!model) throw TypeError('Model not loaded');
-
-  const predictions = await model.estimateFaces(webcamVideo, false);
-
-  return predictions; // ¡Devuelve un array de caras detectadas!
-}
-
-// Ahora actualizamos startDetecting() para usar detectFaces()
-async function startDetecting() {
-  await initCamera();
-  model = await loadModel();
-  
-  checkInterval = setInterval(async () => {
-    console.log('🔍 Detectando caras...');
-    const faces = await detectFaces(); // ¡Ahora sí existe!
-    console.log('Caras encontradas:', faces.length);
-    // Seguiremos añadiendo más funciones paso a paso
-  }, CHECK_INTERVAL_RANGE);
-}
-```
-- **Resultado esperado**: El sistema detecta caras y muestra cuántas encuentra
-
----
-
-### Concepto 5: Control automático del video según atención
-- **Explicación**: Según si detectamos caras o no, decidimos automáticamente si pausar o reproducir el video. También actualizamos la interfaz.
+- **Explicación**: Según si detectamos caras o no, decidimos automáticamente si pausar o reproducir el video. También actualizamos la interfaz para mostrar el estado.
 - **Demo RunJS**:
 ```js
 // Simular el control automático del video
@@ -227,7 +171,7 @@ function simularControlAutomatico(hayCaras) {
 simularControlAutomatico(true);
 setTimeout(() => simularControlAutomatico(false), 2000);
 ```
-- **Aplicación a la fase**: Creamos `handleAttentionState()` y la añadimos al sistema
+- **Aplicación a la fase**: Creamos `handleAttentionState()` y la integramos con la detección existente
 ```js
 function handleAttentionState(areFacesDetected) {
   if (areFacesDetected) {
@@ -245,15 +189,15 @@ function handleAttentionState(areFacesDetected) {
   videoPlayer.pause();
 }
 
-// Actualizamos startDetecting() para usar handleAttentionState()
+// Actualizamos startDetecting() para usar AMBAS funciones que ya tenemos
 async function startDetecting() {
   await initCamera();
   model = await loadModel();
   
   checkInterval = setInterval(async () => {
-    const faces = await detectFaces();
+    const faces = await detectFaces();           // Función del Concepto 3
     console.log('Caras encontradas:', faces.length);
-    handleAttentionState(faces.length > 0); // ¡Control automático del video!
+    handleAttentionState(faces.length > 0);      // ¡Nueva función!
     // Aún falta añadir la visualización
   }, CHECK_INTERVAL_RANGE);
 }
