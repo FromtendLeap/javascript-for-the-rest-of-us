@@ -123,42 +123,42 @@ async function init() {
 
 ---
 
-### Concepto 3: Sistema completo con webcam funcionando
-- **Explicación**: Ahora juntamos todo - variables globales, funciones, objetos, async/await, APIs y manejo de errores. El sistema detecta errores comunes y nos informa qué pasó.
+### Concepto 3: Capturar y clasificar errores específicos
+- **Explicación**: La webcam puede fallar de diferentes formas: usuario niega permiso, no hay cámara, está siendo usada por otra app, etc. Necesitamos **identificar cada tipo de error** y responder apropiadamente con mensajes específicos.
 - **Demo RunJS**:
 ```js
 // Simular diferentes tipos de errores de webcam
-async function simularErrores() {
-  const errores = [
+async function simularErroresWebcam() {
+  const tiposError = [
     { name: 'NotAllowedError', message: 'Permiso denegado' },
     { name: 'NotFoundError', message: 'No hay cámara' },
-    { name: 'NotReadableError', message: 'Cámara en uso por otra app' }
+    { name: 'NotReadableError', message: 'Cámara en uso' }
   ];
   
-  for (const error of errores) {
+  for (const error of tiposError) {
     try {
-      throw error;
+      throw error; // Simular el error
     } catch (e) {
-      console.log(`❌ ${e.name}: ${e.message}`);
+      console.log(`❌ Error capturado: ${e.name}`);
       
-      switch (e.name) {
-        case 'NotAllowedError':
-          console.log('💡 Solución: Recargar y dar permiso');
-          break;
-        case 'NotFoundError':
-          console.log('💡 Solución: Conectar una cámara');
-          break;
-        case 'NotReadableError':
-          console.log('💡 Solución: Cerrar otras apps que usen la cámara');
-          break;
+      // Usar if/else para clasificar errores
+      if (e.name === 'NotAllowedError') {
+        console.log('💡 Solución: Recargar página y dar permiso');
+      } else if (e.name === 'NotFoundError') {
+        console.log('💡 Solución: Conectar una cámara al dispositivo');
+      } else if (e.name === 'NotReadableError') {
+        console.log('💡 Solución: Cerrar otras apps que usen la cámara');
+      } else {
+        console.log('💡 Error desconocido');
       }
+      console.log('---');
     }
   }
 }
 
-simularErrores();
+simularErroresWebcam();
 ```
-- **Aplicación a la fase**: Sistema completo con detección de errores específicos
+- **Aplicación a la fase**: Mejoramos `init()` con clasificación específica de errores de webcam
 ```js
 async function init() {
   try {
@@ -178,28 +178,24 @@ async function init() {
   } catch (error) {
     isDetecting = false;
     
-    // Mensajes específicos según el tipo de error
-    switch (error.name) {
-      case 'NotAllowedError':
-        console.warn('❌ Permiso denegado para la cámara');
-        alert('Se necesita permiso para acceder a la cámara');
-        break;
-      case 'NotFoundError':
-        console.warn('❌ No se encontró cámara');
-        alert('No se encontró ninguna cámara en este dispositivo');
-        break;
-      case 'NotReadableError':
-        console.warn('❌ Cámara en uso');
-        alert('La cámara está siendo usada por otra aplicación');
-        break;
-      default:
-        console.warn('❌ Error desconocido:', error);
-        alert('Error accediendo a la cámara: ' + error.message);
+    // Clasificar errores específicos de webcam con if/else
+    if (error.name === 'NotAllowedError') {
+      console.warn('❌ Permiso denegado para la cámara');
+      alert('Se necesita permiso para acceder a la cámara');
+    } else if (error.name === 'NotFoundError') {
+      console.warn('❌ No se encontró cámara');
+      alert('No se encontró ninguna cámara en este dispositivo');
+    } else if (error.name === 'NotReadableError') {
+      console.warn('❌ Cámara en uso');
+      alert('La cámara está siendo usada por otra aplicación');
+    } else {
+      console.warn('❌ Error desconocido:', error);
+      alert('Error accediendo a la cámara: ' + error.message);
     }
   }
 }
 ```
-- **Resultado esperado**: Sistema robusto que maneja todos los errores posibles
+- **Resultado esperado**: Sistema que identifica cada tipo de error y responde con mensajes útiles
 
 ---
 
@@ -261,22 +257,19 @@ async function init() {
   } catch (error) {
     isDetecting = false;
     
-    switch (error.name) {
-      case 'NotAllowedError':
-        console.warn('❌ Permiso denegado para la cámara');
-        alert('Se necesita permiso para acceder a la cámara');
-        break;
-      case 'NotFoundError':
-        console.warn('❌ No se encontró cámara');
-        alert('No se encontró ninguna cámara en este dispositivo');
-        break;
-      case 'NotReadableError':
-        console.warn('❌ Cámara en uso');
-        alert('La cámara está siendo usada por otra aplicación');
-        break;
-      default:
-        console.warn('❌ Error desconocido:', error);
-        alert('Error accediendo a la cámara: ' + error.message);
+    // Clasificar errores con if/else
+    if (error.name === 'NotAllowedError') {
+      console.warn('❌ Permiso denegado para la cámara');
+      alert('Se necesita permiso para acceder a la cámara');
+    } else if (error.name === 'NotFoundError') {
+      console.warn('❌ No se encontró cámara');
+      alert('No se encontró ninguna cámara en este dispositivo');
+    } else if (error.name === 'NotReadableError') {
+      console.warn('❌ Cámara en uso');
+      alert('La cámara está siendo usada por otra aplicación');
+    } else {
+      console.warn('❌ Error desconocido:', error);
+      alert('Error accediendo a la cámara: ' + error.message);
     }
   }
 }
@@ -312,39 +305,61 @@ C) "Iniciando", "Antes", "Terminado", "Después", "Nombre: The Octocat"
 
 ---
 
-### Ejercicio 2: Try/catch y errores
+### Ejercicio 2: Clasificación de errores con if/else
 ```js
-async function probarError() {
+async function manejarError() {
   try {
-    const resultado = await navigator.mediaDevices.getUserMedia({video: false});
-    console.log('Éxito');
-    return true;
-  } catch (error) {
-    console.log('Error:', error.name);
-    return false;
+    // Simular error de cámara
+    const error = new Error('Device not found');
+    error.name = 'NotFoundError';
+    throw error;
+  } catch (e) {
+    console.log('Error capturado:', e.name);
+    
+    if (e.name === 'NotAllowedError') {
+      console.log('Acción: Pedir permiso de nuevo');
+      return 'retry';
+    } else if (e.name === 'NotFoundError') {
+      console.log('Acción: Mostrar mensaje de no hay cámara');
+      return 'no_camera';
+    } else {
+      console.log('Acción: Error genérico');
+      return 'generic_error';
+    }
   }
 }
 
-probarError();
+manejarError().then(resultado => console.log('Resultado:', resultado));
 ```
-**Pregunta:** Si no hay cámara disponible, ¿qué se ejecutará?
-A) Solo "Éxito" y return true  B) Solo el catch con error.name  C) Ambos bloques try y catch
+**Pregunta:** ¿Qué tres líneas aparecerán?
+A) `"Error capturado: NotFoundError"`, `"Acción: Mostrar mensaje de no hay cámara"`, `"Resultado: no_camera"`  
+B) `"Error capturado: NotAllowedError"`, `"Acción: Pedir permiso de nuevo"`, `"Resultado: retry"`  
+C) Solo `"Resultado: generic_error"`
 
 ---
 
-### Ejercicio 3: APIs del navegador
+### Ejercicio 3: Integración completa con webcam
 ```js
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  console.log('API disponible');
-} else {
-  console.log('API no disponible');
+async function iniciarWebcam() {
+  try {
+    console.log('Solicitando webcam...');
+    
+    const stream = await navigator.mediaDevices.getUserMedia({video: true});
+    
+    console.log('Webcam obtenida');
+    return 'success';
+  } catch (error) {
+    console.log('Error:', error.name);
+    return 'error';
+  }
 }
 
-console.log('Tipo de navigator:', typeof navigator);
-console.log('Tipo de getUserMedia:', typeof navigator.mediaDevices.getUserMedia);
+iniciarWebcam().then(resultado => console.log('Resultado:', resultado));
 ```
-**Pregunta:** En un navegador moderno, ¿qué tres líneas veremos?
-A) `"API disponible"`, `"object"`, `"function"`  B) `"API no disponible"`, `"undefined"`, `"undefined"`  C) `"API disponible"`, `"function"`, `"object"`
+**Pregunta:** Si el usuario CONCEDE permiso, ¿qué líneas veremos?
+A) `"Solicitando webcam..."`, `"Webcam obtenida"`, `"Resultado: success"`  
+B) `"Solicitando webcam..."`, `"Error: NotAllowedError"`, `"Resultado: error"`  
+C) Solo `"Resultado: success"`
 
 ---
 
