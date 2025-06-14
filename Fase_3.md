@@ -1,14 +1,14 @@
 # FASE 3: Sistema Completo de Detección Facial
 
 ## Objetivo de la fase
-Integrar TensorFlow.js para detección facial y completar el sistema automático que pausa/reproduce el video según la atención del usuario.
+Integrar [TensorFlow.js](https://www.tensorflow.org/?hl=es-419) para detección facial y completar el sistema automático que pausa/reproduce el video según la atención del usuario.
 
-## Timing estimado: 55 minutos
+## Timing estimado: 40 minutos
 
 ---
 
 ### Concepto 1: Carga de modelos de IA
-- **Explicación**: TensorFlow.js nos permite cargar modelos pre-entrenados como BlazeFace. Es como descargar un "cerebro especializado" que ya sabe detectar caras.
+- **Explicación**: TensorFlow.js nos permite cargar modelos pre-entrenados como [BlazeFace](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector?hl=es-419). Es como descargar un "cerebro especializado" que ya sabe detectar caras.
 - **Demo RunJS**:
 ```js
 // Simular la carga de un modelo de IA

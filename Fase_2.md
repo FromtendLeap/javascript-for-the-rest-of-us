@@ -8,7 +8,7 @@ Integrar acceso a la webcam en nuestro sistema, convirtiendo `init()` en funció
 ---
 
 ### Concepto 1: APIs del navegador + Async/await
-- **Explicación**: Para acceder a la webcam necesitamos una **API** (menú de opciones del navegador). `navigator.mediaDevices.getUserMedia()` nos da acceso, pero como tarda tiempo (pedir permiso), necesitamos **async/await** para esperar el resultado sin bloquear el navegador.
+- **Explicación**: Para acceder a la webcam necesitamos una **API**, es decir, un interfaz o forma de comunicarnos con un servicio, para intercambiar información. La API `navigator.mediaDevices.getUserMedia()` nos da acceso a la Webcam, pero como tarda tiempo (pedir permiso), necesitamos una manera indicar la promesa de un resultado sin bloquear el navegador. La sintaxis **async/await** nos ayuda a ello.
 - **Demo RunJS**:
 ```js
 // Verificar si tenemos la API

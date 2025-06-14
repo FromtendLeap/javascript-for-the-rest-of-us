@@ -10,7 +10,7 @@ Crear las variables globales del sistema y la función `init()` que controla el 
 
 ### Concepto 1: Variables globales + Tipos de datos
 
-- **Explicación**: Antes de programar, necesitamos "agarrar" elementos HTML y declarar variables. Cada variable guarda un **tipo** de información: texto (strings), números (numbers), verdadero/falso (booleans), objetos, etc.
+- **Explicación**: Antes de programar, necesitamos "agarrar/seleccionar" elementos HTML y guardarlos en algún lugar. Ese lugar se llama "variable", un espacio en memoria dondo almacenar datos. Cada variable guarda un **tipo** de información: texto (strings), números (numbers), verdadero/falso (booleans), objetos, etc.
 - **Demo RunJS**:
 
 ```js
@@ -119,7 +119,7 @@ function init() {
 
 ### Concepto 3: Objetos + métodos
 
-- **Explicación**: Los objetos son "cajas" con propiedades (datos) y métodos (acciones). Los elementos HTML son objetos con propiedades como `.textContent` y métodos como `.play()` o `.addEventListener()`.
+- **Explicación**: Los objetos son "cajas" con propiedades (características) y métodos (acciones). Representan entidades a nivel de datos. Los elementos HTML son objetos con propiedades como `.textContent` y métodos como `.play()` o `.addEventListener()`.
 - **Demo RunJS**:
 
 ```js
@@ -136,18 +136,6 @@ const persona = {
 // Usar propiedades y métodos
 console.log('Nombre:', persona.nombre); // acceder propiedad
 console.log('Saludo:', persona.saludar()); // llamar método
-
-// Simular elemento HTML como objeto
-const elementoSimulado = {
-  textContent: 'Click me', // propiedad
-  addEventListener: function (evento, funcion) {
-    // método
-    console.log('Event listener añadido para:', evento);
-  },
-};
-
-console.log('Texto:', elementoSimulado.textContent);
-elementoSimulado.addEventListener('click', function () {});
 ```
 
 - **Aplicación a la fase**: Usamos objetos y métodos para actualizar la interfaz
@@ -175,7 +163,7 @@ function init() {
 
 ### Concepto 4: Event listeners + Sistema completo
 
-- **Explicación**: Los event listeners permiten que objetos (como botones) ejecuten funciones cuando pasa algo (como un click). Conectamos todo para tener un sistema que responde a la interacción del usuario.
+- **Explicación**: Los event listeners permiten que objetos (como botones) ejecuten funciones cuando pasa algo (como un click). Para poder conectar todo necesitamos un elemento, un evento y a acción en diferido (función callback) a ejectutar. Esta se invocará si sucede ese evento sobre ese elemento. Pero no hay garantía.
 - **Demo RunJS**:
 
 ```js
