@@ -8,7 +8,7 @@ Integrar [TensorFlow.js](https://www.tensorflow.org/?hl=es-419) para detección 
 ---
 
 ### Concepto 1: Carga de modelos de IA
-- **Explicación**: TensorFlow.js nos permite cargar modelos pre-entrenados como [BlazeFace](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector?hl=es-419). Es como descargar un "cerebro especializado" que ya sabe detectar caras.
+- **Explicación**: TensorFlow.js nos permite cargar modelos pre-entrenados como [BlazeFace](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector?hl=es-419). Es como descargar un "cerebro especializado" que ya sabe detectar caras. Lo cargamos de forma asíncrona ya que es un recurso externo, usando **async/await**.
 - **Demo RunJS**:
 ```js
 // Simular la carga de un modelo de IA
@@ -42,7 +42,7 @@ async function loadModel() {
 ---
 
 ### Concepto 2: setInterval para detección continua
-- **Explicación**: Para saber si el usuario está atento, necesitamos verificar continuamente. `setInterval` ejecuta una función cada X milisegundos automáticamente.
+- **Explicación**: Para saber si el usuario está atento, necesitamos verificar continuamente (según el valor de `CHECK_INTERVAL_RANGE`). `setInterval` ejecuta una función cada X milisegundos, automáticamente.
 - **Demo RunJS**:
 ```js
 let verificaciones = 0;
@@ -85,7 +85,7 @@ function stopDetecting() {
 ---
 
 ### Concepto 3: Detección facial + Arrays
-- **Explicación**: Usamos el modelo para analizar la webcam, pero primero necesitamos entender **arrays** porque `detectFaces()` devuelve una "lista de caras detectadas". Un array es como una "lista de la compra" - puede tener varios elementos en orden.
+- **Explicación**: Usamos el modelo para analizar la webcam, pero primero necesitamos entender qué son **arrays** (en verdad, más o menos, ya lo sabemos, porque son objetos) ya que `detectFaces()` devuelve una "lista de caras detectadas". Un array es como una "lista de la compra" - puede tener varios elementos en orden, incluso pueden existir arrays dentro de arrays.
 - **Demo RunJS**:
 ```js
 // Primero entendemos arrays
