@@ -6,6 +6,11 @@ Aprender JavaScript puede parecer abrumador, pero la base sigue siendo simple y 
 
 Este workshop es para quienes quieren entrar en el mundo tech construyendo fundamentos sólidos: variables, funciones, estructuras de control y buenas prácticas reales, sin perderse en frameworks o modas. Dos horas prácticas para poner el primer pie en la programación web con criterio y confianza.
 
+## ⬇️ Descarga de archivos
+- Repositorio en GitHub: `https://github.com/FromtendLeap/javascript-for-the-rest-of-us`
+
++ <img src="assets/QR.png" alt="QR Frontend Leap" width="200" />
+
 ## 🎯 ¿Qué vamos a construir?
 
 Un **sistema de detección facial** que:
